@@ -311,7 +311,6 @@
     left: 0; /* Keep it in the same position as the header */
     z-index: 0; /* Ensure it stays under the header */
     background-color: white; /* Optional: Keeps background consistent */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow to sticky cells */
   }
   
   
