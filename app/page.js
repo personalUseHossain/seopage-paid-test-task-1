@@ -98,7 +98,9 @@ export default function Home() {
   }, [activeTableIndex]); // Dependency on activeTableIndex to refetch data when the table changes
 
   // Show loading state while data is being fetched
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div style={{height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}>
+    <img src='https://i.giphy.com/3oEjI6SIIHBdRxXI40.webp'/>
+  </div>;
 
   return (
     <div style={{paddingLeft: ".5rem", paddingRight: ".5rem"}}>
