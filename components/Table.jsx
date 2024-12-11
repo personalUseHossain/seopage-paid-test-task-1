@@ -535,9 +535,10 @@ const Table = ({ dataColumns: initialColumns, data }) => {
 
   // Apply the filters to the data
   const cleanText = (text) => {
-    // Remove all characters that are not letters, numbers, or whitespace
-    return text.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
+    // Remove all characters that are not letters, numbers, spaces, or periods (for decimal numbers)
+    return text.replace(/[^a-zA-Z0-9\s.]/g, '').trim().toLowerCase();
   };
+  
   
   const applyFilters = () => {
     // Here you can apply your logic to filter the data based on `selectedFilters`
@@ -551,6 +552,8 @@ const Table = ({ dataColumns: initialColumns, data }) => {
         filteredData = filteredData.filter((row) => {
           // Clean and prepare the row[column] value
           const rowValue = row[column] ? cleanText(row[column].toString()) : "";
+
+          console.log(rowValue)
   
           switch (operator) {
             case ">":
