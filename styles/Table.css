@@ -364,7 +364,7 @@
   }
   
 
-  select, input {
+  select, .filter-rows input {
     padding: 8px 12px;
     font-size: 14px;
     border: 1px solid #ccc;
