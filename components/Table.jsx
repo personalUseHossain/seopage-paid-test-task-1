@@ -1764,7 +1764,7 @@ const Table = ({ dataColumns: initialColumns, data }) => {
 
   return (
     <>
-      <div style={{display: "flex", justifyContent: "space-between", marginBottom: ".5rem"}}>
+      <div style={{display: "flex", justifyContent: "space-between", marginBottom: ".5rem", flexWrap: 'wrap', gap: "2rem"}}>
       <div style={{ display: "flex", gap: ".5rem" }}>
         <img
           src="https://cdn-icons-png.flaticon.com/512/3524/3524659.png"
