@@ -1,0 +1,297 @@
+.table-container {
+    width: 100%; /* Full width of the parent container */
+    max-height: 60vh; /* 60% of the viewport height */
+    overflow-x: scroll; /* Enables horizontal scrolling if content exceeds width */
+  }
+  
+
+  .table-container::-webkit-scrollbar{
+    display: none;
+  }
+  
+  /* Table and table elements */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
+  }
+
+  .table-cell{
+    display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Limits to 2 lines */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal; /* Ensures text breaks properly */
+  }
+
+  .header-text{
+    display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; /* Limits to 2 lines */
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: normal; /* Ensures text breaks properly */
+  }
+
+  .modal-body::-webkit-scrollbar{
+    display: none;
+  }
+
+  .column-item{
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1; /* Limits to 2 lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal; /* Ensures text breaks properly */
+  }
+  
+  th {
+    position: relative;
+    padding: 10px;
+    background-color: #f1f1f1;
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+  }
+  
+  /* Styling for the search input box */
+  .search-input {
+    width: auto;
+    padding: 5px;
+    margin-top: 5px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    max-width: 8rem;
+  }
+  
+  /* Column header to align the text and search input */
+  .column-header {
+    padding: 10px;
+    text-align: left;
+    position: relative;
+    vertical-align: middle;
+    min-width: 150px;
+    
+  }
+  
+  /* Align search inputs in the center */
+  .column-header input {
+    width: 90%; /* Ensure search box doesn't take up the entire header */
+    margin: 5px 0;
+    display: block;
+  }
+  
+  /* Resizer for columns */
+  .resizer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    cursor: col-resize;
+  }
+  
+  /* Table cell styling */
+  td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 14px;
+  }
+  
+  /* Ensure rows and headers align correctly even with variable header text sizes */
+  .table th,
+  .table td {
+    text-align: left;
+    padding: 10px;
+  }
+
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: white; /* Optional: Helps with visibility */
+    z-index: 1; /* Ensures the header stays on top of other content */
+  }
+  
+  .table th {
+    word-wrap: break-word;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .table td {
+    word-wrap: break-word;
+  }
+  
+/* Modal overlay to cover the whole screen */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  /* Modal styling */
+  .modal {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  /* Modal header with close button */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .modal-header h2 {
+    margin: 0;
+  }
+  
+  .close-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  
+  .close-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Modal body styling */
+  .modal-body {
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+  }
+  
+  .checkbox-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .checkbox-item {
+    margin-bottom: 10px;
+  }
+  
+  .checkbox-label {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  /* Styling for the checkboxes */
+  .checkbox-label input {
+    margin-right: 10px;
+  }
+  
+  /* Footer button */
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .modal-footer button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  
+  .modal-footer button:hover {
+    background-color: #45a049;
+  }
+
+  
+
+/* Style for table tabs (navigation) */
+.table-tabs {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .table-tabs::-webkit-scrollbar{
+    display: none;
+  }
+  
+  .table-tabs button {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .table-tabs button.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .table-tabs button:hover {
+    background-color: #dcdcdc;
+  }
+
+  
+  .popup-message {
+    position: absolute;
+    background-color: white;
+    top: 3rem;
+    left: 100%; /* Position it relative to the resizer */
+    transform: translateX(-50%); /* Centers the popup horizontally */
+    z-index: 100;
+    display: none; /* Hide the popup by default */
+    padding: 0.5rem;
+    border: 1px solid #ccc; /* Optional: adds a border for better visibility */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: adds a slight shadow */
+  }
+  
+  .resizer:hover + .popup-message {
+    display: block;
+  }
+  
+
+  .column-item:hover .drag-and-drop {
+    display: block;
+    opacity: .5; /* Fully visible */
+  }
+  
+  .drag-and-drop {
+    display: none; /* Hidden by default */
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+  }
+  

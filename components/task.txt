@@ -1,0 +1,11 @@
+All table columns should be draggable 
+All tables should have Display Density Feature: Demo Link
+All tables should have Searchable Columns: Demo Link
+All tables should have Customizable Columns: Demo Link
+User should be able to show or hide any column/columns they want
+All tables should be responsive from any devices
+Every table should have Fixed Header like this: Demo Link
+
+All tables should have Resizable columns like this: Demo Link
+“Predefined Cycle” Table should have Horizontal Scroll of this column: Project Manager: Demo Link
+All tables should have Conditional Column Filtering Feature: Demo Link
