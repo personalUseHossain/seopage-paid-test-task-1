@@ -1,6 +1,6 @@
 
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTable, useResizeColumns, useBlockLayout } from "react-table";
 import { useDrag, useDrop } from "react-dnd";
 import "@/styles/Table.css";
@@ -32,79 +32,58 @@ const useColumnDrag = (column, index, moveColumnInTable, isResizing) => {
 
 // ColumnDrag component for table header columns
 const ColumnDrag = ({
-  column,
-  idx,
-  moveColumnInTable,
-  filters,
-  handleSearchChange,
-}) => {
-  const { drag, drop } = useColumnDrag(column, idx, moveColumnInTable);
-
-  const [cursorName, setCursorName] = useState(null);
-
-  // Function to get the current cursor style
-
-  // Handle Mouse Down event
-  const handleMouseDown = (event) => {
-    setCursorName(event); // Store the cursor style in state
-  };
-
-  return (
-    <th
-      ref={
-        cursorName !== "resize"
-          ? (node) => {
-              if (node) {
-                drag(drop(node)); // Attach drag/drop handlers if not resizing
-              }
-            }
-          : {}
-      }
-      onMouseDown={(e) => handleMouseDown("auto")} // Track cursor on mouse down
-      onMouseUp={() => {
-        setCursorName(null);
-      }}
-      onTouchEnd={() => setCursorName(null)}
-      onTouchStart={(e) => handleMouseDown("auto")}
-      {...column.getHeaderProps()}
-      key={column.id}
-      className="column-header"
-    >
-      <div className="header-text">{column.Header}</div>
-
-      {column.canResize && (
-        <>
-          <div
-            onMouseDown={(e) => {
-              handleMouseDown("resize");
-            }} // Track cursor on mouse down
-            onTouchStart={(e) => handleMouseDown("resize")}
-            onMouseUp={() => {
-              setCursorName(null);
-            }}
-            onTouchEnd={() => setCursorName(null)}
-            {...column.getResizerProps()}
-            className="resizer"
+    column,
+    idx,
+    moveColumnInTable,
+    filters,
+    handleSearchChange,
+  }) => {
+    const { drag, drop } = useColumnDrag(column, idx, moveColumnInTable);
+  
+    const [cursorName, setCursorName] = useState(null);
+  
+    const isStickyColumn = column.Header === "PROJECT MANAGER"; // Identify the sticky column
+  
+    return (
+      <th
+        ref={cursorName !== "resize" ? (node) => drag(drop(node)) : {}}
+        className={`column-header ${isStickyColumn ? "sticky" : ""}`} // Add 'sticky' class if it's the "PROJECT MANAGER" column
+        onMouseDown={(e) => setCursorName("auto")}
+        onMouseUp={() => setCursorName(null)}
+        onTouchEnd={() => setCursorName(null)}
+        onTouchStart={(e) => setCursorName("auto")}
+        {...column.getHeaderProps()}
+        key={column.id}
+      >
+        <div className="header-text">{column.Header}</div>
+        {column.canResize && (
+          <>
+            <div
+              onMouseDown={(e) => setCursorName("resize")}
+              onTouchStart={(e) => setCursorName("resize")}
+              onMouseUp={() => setCursorName(null)}
+              onTouchEnd={() => setCursorName(null)}
+              {...column.getResizerProps()}
+              className="resizer"
+            />
+            <div className="popup-message">
+              <p>Double click and drag to resize</p>
+            </div>
+          </>
+        )}
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder={`Search ${column.render("Header")}`}
+            value={filters[column.id] || ""}
+            onChange={(e) => handleSearchChange(e, column.id)}
+            className="search-input"
           />
-          <div className="popup-message">
-            <p>Double click and drag to resize</p>
-          </div>
-        </>
-      )}
-
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder={`Search ${column.render("Header")}`}
-          value={filters[column.id] || ""}
-          onChange={(e) => handleSearchChange(e, column.id)}
-          className="search-input"
-        />
-      </div>
-    </th>
-  );
-};
-
+        </div>
+      </th>
+    );
+  };
+  
 // ColumnDrag for Modal (Popup) reordering
 const ColumnDragInModal = ({
   column,
@@ -341,26 +320,29 @@ const Table = ({ dataColumns: initialColumns, data }) => {
                 </tr>
               </thead>
               <tbody {...getTableBodyProps()}>
-                {paginatedRows.map((row) => {
-                  prepareRow(row);
-                  return (
-                    <tr {...row.getRowProps()} key={row.id}>
-                      {row.cells.map((cell) => (
-                        <td
-                          {...cell.getCellProps()}
-                          style={{
-                            ...cell.getCellProps().style,
-                            padding: `${rowGap}px 10px`,
-                          }}
-                          key={cell.column.id}
-                          className="table-cell"
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })}
+              {paginatedRows.map((row) => {
+  prepareRow(row);
+  return (
+    <tr {...row.getRowProps()} key={row.id}>
+      {row.cells.map((cell) => {
+        const isStickyCell = cell.column.Header === "PROJECT MANAGER"; // Identify the sticky column
+        return (
+          <td
+            {...cell.getCellProps()}
+            key={cell.column.id}
+            className={`table-cell ${isStickyCell ? "sticky-cell" : ""}`} // Add 'sticky-cell' class if it's the "PROJECT MANAGER" column
+            style={{
+              ...cell.getCellProps().style,
+              padding: `${rowGap}px 10px`,
+            }}
+          >
+            {cell.render("Cell")}
+          </td>
+        );
+      })}
+    </tr>
+  );
+})}
               </tbody>
             </>
           ))}

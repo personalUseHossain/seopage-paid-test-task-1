@@ -294,4 +294,24 @@
     transition: opacity 0.3s ease;
     cursor: pointer;
   }
+
+
+
+  /* Make the header sticky */
+.column-header.sticky {
+    position: sticky !important;
+    left: 0; /* Ensure it stays at the left of the table */
+    z-index: 2; /* Make sure the sticky header is above the rest of the table */
+    background-color: #f1f1f1; /* Optional: Keeps background consistent */
+  }
+  
+  /* Make the cell sticky for the "PROJECT MANAGER" column */
+  .sticky-cell {
+    position: sticky;
+    left: 0; /* Keep it in the same position as the header */
+    z-index: 0; /* Ensure it stays under the header */
+    background-color: white; /* Optional: Keeps background consistent */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow to sticky cells */
+  }
+  
   
