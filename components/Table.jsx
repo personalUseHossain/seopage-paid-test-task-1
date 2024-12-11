@@ -534,32 +534,37 @@ const Table = ({ dataColumns: initialColumns, data }) => {
   };
 
   // Apply the filters to the data
+  const cleanText = (text) => {
+    // Remove all characters that are not letters, numbers, or whitespace
+    return text.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
+  };
+  
   const applyFilters = () => {
     // Here you can apply your logic to filter the data based on `selectedFilters`
     let filteredData = data;
   
     selectedFilters.forEach(({ column, operator, value }) => {
-      // Ensure value is a string and trim and lowercase it for consistent filtering
-      const trimmedValue = value && typeof value === 'string' ? value.trim().toLowerCase() : value;
+      // Clean and prepare the value for filtering
+      const cleanedValue = value && typeof value === 'string' ? cleanText(value) : value;
   
       if (column && operator && value !== "") {
         filteredData = filteredData.filter((row) => {
-          // Convert row[column] to string and lowercase for consistent filtering
-          const rowValue = row[column] ? row[column].toString().trim().toLowerCase() : "";
+          // Clean and prepare the row[column] value
+          const rowValue = row[column] ? cleanText(row[column].toString()) : "";
   
           switch (operator) {
             case ">":
-              return parseFloat(rowValue) > parseFloat(trimmedValue);
+              return parseFloat(rowValue) > parseFloat(cleanedValue);
             case "<":
-              return parseFloat(rowValue) < parseFloat(trimmedValue);
+              return parseFloat(rowValue) < parseFloat(cleanedValue);
             case "=":
-              return rowValue === trimmedValue;
+              return rowValue === cleanedValue;
             case "!=":
-              return rowValue !== trimmedValue;
+              return rowValue !== cleanedValue;
             case "contains":
-              return rowValue.includes(trimmedValue);
+              return rowValue.includes(cleanedValue);
             case "between":
-              const [min, max] = trimmedValue.split(",").map((v) => parseFloat(v));
+              const [min, max] = cleanedValue.split(",").map((v) => parseFloat(v));
               return parseFloat(rowValue) >= min && parseFloat(rowValue) <= max;
             default:
               return true;
@@ -570,6 +575,7 @@ const Table = ({ dataColumns: initialColumns, data }) => {
   
     setFilteredData(filteredData); // Update the filtered data
   };
+  
   
 
 
